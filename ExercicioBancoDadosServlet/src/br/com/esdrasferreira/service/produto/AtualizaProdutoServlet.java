@@ -1,4 +1,4 @@
-package br.com.esdrasferreira.view.produto;
+package br.com.esdrasferreira.service.produto;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.esdrasferreira.model.dao.ProdutoDao;
+import br.com.esdrasferreira.model.entity.Produto;
 
-@WebServlet({ "/InserirProdutoServlet", "/inserir-produto-servlet" })
-public class InserirProdutoServlet extends HttpServlet {
+@WebServlet({ "/AtualizaProdutoServlet", "/atualiza-produto-servlet" })
+public class AtualizaProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void destroy() {
@@ -23,7 +24,7 @@ public class InserirProdutoServlet extends HttpServlet {
 
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
-		
+		Integer produtoId = Integer.parseInt(request.getParameter("id")); // <input type=hidden name=id/>
 		String nome = request.getParameter("nome");// <input type=hidden name=nome />
 
 		if (id == null) {
@@ -42,7 +43,11 @@ public class InserirProdutoServlet extends HttpServlet {
 			try {
 				ProdutoDao produtoDao = new ProdutoDao();
 
-				produtoDao.addProduto(nome, id);
+				Produto produto = new Produto(produtoId, nome);
+
+				produtoDao.atualizar(produto);
+
+				System.out.println(produto.getProduto());
 
 				produtoDao.fecharConexao();
 				response.sendRedirect("area-restrita");

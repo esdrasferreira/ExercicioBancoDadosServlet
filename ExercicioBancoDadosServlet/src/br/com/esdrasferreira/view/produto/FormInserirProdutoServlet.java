@@ -1,4 +1,4 @@
-package br.com.esdrasferreira.view.sessao;
+package br.com.esdrasferreira.view.produto;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class FormInserirProdutoServlet extends HttpServlet {
 
 		} else {
 
-			html += "<head><title>Área Restrita</title></head>" + "<body>" +
+			html += "<head><title>Add Produto</title></head>" + "<body>" +
 			"<h1>Inserir Produtos</h1>"+
 			"<table border=\"1\">";
 			

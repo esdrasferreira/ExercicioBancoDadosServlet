@@ -13,47 +13,47 @@ import javax.servlet.http.HttpSession;
 import br.com.esdrasferreira.model.dao.ProdutoDao;
 import br.com.esdrasferreira.model.entity.Produto;
 
-@WebServlet({ "/RecuperaSessao", "/area-restrita" })
-public class RecuperaSessao extends HttpServlet {
+@WebServlet({ "/FormResultadoPesquisa", "/resultado-pesquisa" })
+public class FormResultadoPesquisa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	
 	public void destroy() {
-		super.destroy();
+	super.destroy();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
-		
+		String produtoSearch = request.getParameter("produtoSearch");
 
 		// inicia a saída HTML
 		response.setContentType("text/html");
 		String html = "<html>";
 
-		if (id == null) {
+		if (produtoSearch == null) {
 			html += "<head><title>Área Restrita</title></head>" + "<body>" + "Você não tem permissão. "
 					+ "<br /><a href=\"area-login\"> Clique aqui para logar</a>" + "</body></html>";
 
 		} else {
 
-			html += "<head><title>Área Restrita</title></head>" + "<body>"
-					
+			html += "<head><title>Resultados</title></head>" + "<body>"
+					+ "<a href=\"form-inserir-produto\">Clique aqui para adicionar um produto</a>"
 					+ "<h1>Produtos Encotrados </h1>" +
-					"<br/> Usuario logado: "+ sessao.getAttribute("user")+
+
 					"<br /><form action=\"resultado-pesquisa\">\r\n"
 					+ "Pesquisa: <input type=\"text\" name=\"produtoSearch\" value=\"\" id="+id+" />\r\n"
-					+ "<input type=\"submit\" value=\"Pesquisar\"/>\r\n" + "\r\n" + 
-					 "<br/><a href=\"form-inserir-produto\">Clique aqui para adicionar um produto</a>"+
-					"</form>" +
-					
+					+ "<input type=\"submit\" value=\"Pesquisar novamente\"/>\r\n" + "\r\n" + "</form>" +
+
 					"<table border=\"1\">" + "<tr><th>ID</th><th>Produto</th><th>Atualizar</th><th>Excuir</th></tr>";
 
 			try {
 				ProdutoDao produtoDao = new ProdutoDao();
 
-				List<Produto> produtos = produtoDao.todos(id);
+				List<Produto> produtos = produtoDao.pesquisaPorNomeProduto(produtoSearch, id);
 
 				for (Produto produto : produtos) {
 

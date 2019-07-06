@@ -22,7 +22,7 @@ public class ProdutoDao {
 //UPDATE `produtos` SET `produto` = 'ps4' WHERE `produtos`.`id_produto` = 1
 		try {
 			conexao = this.conexao;
-			ps = conexao.prepareStatement("INSERT INTO `produtos` (`id_produto`, `produto`, `usuario-fk`) VALUES (NULL, ?, ?)");
+			ps = conexao.prepareStatement("INSERT INTO `produtos` (`id_produto`, `produto`, `usuariofk`) VALUES (NULL, ?, ?)");
 			ps.setString(1, produto);
 			ps.setInt(2, id);
 			ps.executeUpdate();
@@ -92,7 +92,7 @@ public class ProdutoDao {
 
 	}
 
-	public Produto pesquisaPorNomeProduto(String nome) throws Exception {
+	public List<Produto> pesquisaPorNomeProduto(String nome, int id) throws Exception {
 
 		Connection conexao = null;
 		ResultSet rs = null;
@@ -102,16 +102,23 @@ public class ProdutoDao {
 		try {
 
 			conexao = this.conexao;
-			ps = conexao.prepareStatement("SELECT * FROM `produtos` WHERE id_produto = '" + nome + "' ");
+			ps = conexao.prepareStatement("select servlet.produtos.id_produto, servlet.produtos.produto\n" + 
+					"from servlet.produtos\n" + 
+					"where servlet.produtos.usuariofk = ?\n" + 
+					"and servlet.produtos.produto like ?");
+			ps.setInt(1, id);
+			ps.setString(2, '%'+ nome+ '%');
 			rs = ps.executeQuery();
+			List<Produto> produtos = new ArrayList<Produto>();
 
 			while (rs.next()) {
 
 				produto = new Produto(rs.getInt(1), rs.getString(2));
+				produtos.add(produto);
 
 			}
 
-			return produto;
+			return produtos;
 
 		} catch (SQLException sqle) {
 
@@ -134,7 +141,7 @@ public class ProdutoDao {
 
 			conexao = this.conexao;
 			st = conexao.prepareStatement(
-					"SELECT produtos.id_produto, produto FROM `produtos` WHERE `usuario-fk` = '" + id + "' ");
+					"SELECT produtos.id_produto, produto FROM `produtos` WHERE `usuariofk` = '" + id + "' ");
 			rs = st.executeQuery();
 
 			List<Produto> produtos = new ArrayList<Produto>();

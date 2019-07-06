@@ -1,4 +1,4 @@
-package br.com.esdrasferreira.view.sessao;
+package br.com.esdrasferreira.service.sessao;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,12 +56,15 @@ public class LoginServlet extends HttpServlet {
 		
 		if(user != null) {
 			sessao.setAttribute("id", user.getId());
+			sessao.setAttribute("user", user.getUsuario());
+			
+			response.sendRedirect("area-restrita");
 		
-			html += "<head><title>Login</title></head>" +
-					"<body>" +
-					"<h1>usuario e Senha</h1>" +
-					"Usuario logado: "+ user.getUsuario() +
-					"<br /><a href=\"area-restrita\">Navegar na Area restrita </a>";
+//			html += "<head><title>Login</title></head>" +
+//					"<body>" +
+//					"<h1>usuario e Senha</h1>" +
+//					"Usuario logado: "+ user.getUsuario() +
+//					"<br /><a href=\"area-restrita\">Navegar na Area restrita </a>";
 		
 		}else {
 			

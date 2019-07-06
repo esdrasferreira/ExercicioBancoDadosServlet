@@ -36,13 +36,13 @@ public class FormAtualizaServlet extends HttpServlet {
 		String html = "<html>";
 
 		if (id == null) {
-			html += "<head><title>Área Restrita</title></head>" + "<body>" + "Você não tem permissão. "
+			html += "<head><title>Atualiza produto</title></head>" + "<body>" + "Você não tem permissão. "
 					+ "<br /><a href=\"area-login\"> Clique aqui para logar</a>" + "</body></html>";
 
 		} else {
 
-			html += "<head><title>Área Restrita</title></head>" + "<body>" +
-			"<h1>Produtos Encotrados </h1>"+
+			html += "<head><title>Atualiza produto</title></head>" + "<body>" +
+			"<h1>Atualização de produtos </h1>"+
 			"<table border=\"1\">";
 			
 			
