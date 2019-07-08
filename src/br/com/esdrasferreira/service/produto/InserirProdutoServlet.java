@@ -18,13 +18,13 @@ public class InserirProdutoServlet extends HttpServlet {
 		super.destroy();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
 		
-		String nome = request.getParameter("nome");// <input type=hidden name=nome />
+		String nome = request.getParameter("txtRq");// <input type=hidden name=nome />
 
 		if (id == null) {
 			// inicia a saída HTML
@@ -45,7 +45,7 @@ public class InserirProdutoServlet extends HttpServlet {
 				produtoDao.addProduto(nome, id);
 
 				produtoDao.fecharConexao();
-				response.sendRedirect("area-restrita");
+				response.sendRedirect("AreaRestrita.jsp");
 
 			} catch (Exception e) {
 				e.printStackTrace();

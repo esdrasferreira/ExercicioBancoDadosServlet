@@ -11,21 +11,20 @@ import javax.servlet.http.HttpSession;
 import br.com.esdrasferreira.model.dao.ProdutoDao;
 import br.com.esdrasferreira.model.entity.Produto;
 
-@WebServlet({ "/AtualizaProdutoServlet", "/atualiza-produto-servlet" })
-public class AtualizaProdutoServlet extends HttpServlet {
+@WebServlet({ "/ExcluiProdutoServlet", "/excluir-servlet" })
+public class ExcluiProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void destroy() {
 		super.destroy();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
-		Integer produtoId = Integer.parseInt(request.getParameter("id")); // <input type=hidden name=id/>
-		String nome = request.getParameter("nome");// <input type=hidden name=nome />
+		Integer produtoId = Integer.parseInt(request.getParameter("Id")); // <input type=hidden name=id/>
 
 		if (id == null) {
 			// inicia a saída HTML
@@ -37,17 +36,13 @@ public class AtualizaProdutoServlet extends HttpServlet {
 			response.getWriter().append(html);
 
 		} else {
-				
-			
 
 			try {
 				ProdutoDao produtoDao = new ProdutoDao();
-
-				Produto produto = new Produto(produtoId, nome);
-
-				produtoDao.atualizar(produto);
-
-				System.out.println(produto.getProduto());
+				Produto produto = produtoDao.pesquisaPorID(produtoId);
+				
+				
+				produtoDao.excluir(produto.getId());
 
 				produtoDao.fecharConexao();
 				response.sendRedirect("AreaRestrita.jsp");

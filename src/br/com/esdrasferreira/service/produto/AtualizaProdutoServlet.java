@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import br.com.esdrasferreira.model.dao.ProdutoDao;
 import br.com.esdrasferreira.model.entity.Produto;
 
-@WebServlet({ "/ExcluiProdutoServlet", "/excluir-servlet" })
-public class ExcluiProdutoServlet extends HttpServlet {
+@WebServlet({ "/AtualizaProdutoServlet", "/atualiza-produto-servlet" })
+public class AtualizaProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void destroy() {
@@ -25,6 +25,7 @@ public class ExcluiProdutoServlet extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
 		Integer produtoId = Integer.parseInt(request.getParameter("id")); // <input type=hidden name=id/>
+		String nome = request.getParameter("txtRq");// <input type=hidden name=nome />
 
 		if (id == null) {
 			// inicia a saída HTML
@@ -36,16 +37,20 @@ public class ExcluiProdutoServlet extends HttpServlet {
 			response.getWriter().append(html);
 
 		} else {
+				
+			
 
 			try {
 				ProdutoDao produtoDao = new ProdutoDao();
-				Produto produto = produtoDao.pesquisaPorID(produtoId);
-				
-				
-				produtoDao.excluir(produto.getId());
+
+				Produto produto = new Produto(produtoId, nome);
+
+				produtoDao.atualizar(produto);
+
+				System.out.println(produto.getProduto());
 
 				produtoDao.fecharConexao();
-				response.sendRedirect("area-restrita");
+				response.sendRedirect("AreaRestrita.jsp");
 
 			} catch (Exception e) {
 				e.printStackTrace();

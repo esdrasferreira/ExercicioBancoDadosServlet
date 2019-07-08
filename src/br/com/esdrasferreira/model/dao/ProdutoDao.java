@@ -45,7 +45,9 @@ public class ProdutoDao {
 
 		PreparedStatement ps = null;
 		Connection conexao = null;
-//UPDATE `produtos` SET `produto` = 'ps4' WHERE `produtos`.`id_produto` = 1
+		String p = produto.getProduto();
+		System.out.println(p);
+
 		try {
 			conexao = this.conexao;
 			ps = conexao.prepareStatement("UPDATE `produtos` SET `produto` =? WHERE `produtos`.`id_produto` = ?");
