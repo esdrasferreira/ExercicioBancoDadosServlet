@@ -29,7 +29,6 @@ public class FormAtualizaServlet extends HttpServlet {
 		
 		
 		
-		
 
 		// inicia a saída HTML
 		response.setContentType("text/html");

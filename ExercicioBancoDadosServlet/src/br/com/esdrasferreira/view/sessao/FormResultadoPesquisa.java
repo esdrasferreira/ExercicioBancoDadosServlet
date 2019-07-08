@@ -29,6 +29,8 @@ public class FormResultadoPesquisa extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
 		String produtoSearch = request.getParameter("produtoSearch");
+		
+		
 
 		// inicia a saída HTML
 		response.setContentType("text/html");

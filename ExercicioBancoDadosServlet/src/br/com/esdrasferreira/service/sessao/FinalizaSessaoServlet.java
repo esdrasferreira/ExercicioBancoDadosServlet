@@ -25,7 +25,7 @@ public class FinalizaSessaoServlet extends HttpServlet {
 		sessao.setAttribute("id", null);
 		
 
-		response.sendRedirect("area-login");
+		response.sendRedirect("Login.jsp");
 
 	}
 

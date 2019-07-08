@@ -52,13 +52,22 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		String html = "<html>";
+		
+		
+		String html2 = "<td>Mark</td>";
+		
+		
+		
+		
+		
+		
 		response.setContentType("text/html;charset=UTF-8");
 		
 		if(user != null) {
 			sessao.setAttribute("id", user.getId());
 			sessao.setAttribute("user", user.getUsuario());
 			
-			response.sendRedirect("area-restrita");
+			response.sendRedirect("AreaRestrita.jsp");
 		
 //			html += "<head><title>Login</title></head>" +
 //					"<body>" +
@@ -68,9 +77,11 @@ public class LoginServlet extends HttpServlet {
 		
 		}else {
 			
-			html += "<head><title>Erro no Login</title></head>" +
-					"<body>" +
-					"<h1>Usuario e Senha Invalidos</h1>";
+			html += "<head><meta charset=\"ISO-8859-1\">\n" + 
+					"<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"><title>Erro no Login</title></head>" +
+					"<body><form action=\"finaliza-sessao\" >" +
+					"<h2>Usuario e Senha Inválidos</h2>"+
+					" <button type=\"submit\"  value=\"Logar\" class=\"btn btn-primary\">Voltar</button></form>";
 			
 		}
 		

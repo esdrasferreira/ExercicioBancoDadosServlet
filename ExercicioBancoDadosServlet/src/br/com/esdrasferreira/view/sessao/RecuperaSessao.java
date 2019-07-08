@@ -27,14 +27,17 @@ public class RecuperaSessao extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		Integer id = (Integer) sessao.getAttribute("id");
 		
+		
+		
 
 		// inicia a saída HTML
 		response.setContentType("text/html");
 		String html = "<html>";
+		
 
 		if (id == null) {
 			html += "<head><title>Área Restrita</title></head>" + "<body>" + "Você não tem permissão. "
-					+ "<br /><a href=\"area-login\"> Clique aqui para logar</a>" + "</body></html>";
+					+ "<br /><a href=\"finaliza-sessao\"> Clique aqui para logar</a>" + "</body></html>";
 
 		} else {
 

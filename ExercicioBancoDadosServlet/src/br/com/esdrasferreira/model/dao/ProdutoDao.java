@@ -3,8 +3,8 @@ package br.com.esdrasferreira.model.dao;
 import java.sql.*;
 import java.util.*;
 
-import br.com.esdrasferreira.factory.jdbc.FabricaConexao;
 import br.com.esdrasferreira.model.entity.Produto;
+import br.com.esdrasferreira.factory.jdbc.*;
 
 public class ProdutoDao {
 
@@ -190,3 +190,14 @@ public class ProdutoDao {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

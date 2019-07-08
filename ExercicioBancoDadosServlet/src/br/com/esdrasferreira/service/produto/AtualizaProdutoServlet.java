@@ -37,7 +37,7 @@ public class AtualizaProdutoServlet extends HttpServlet {
 			response.getWriter().append(html);
 
 		} else {
-
+				
 			
 
 			try {
@@ -50,7 +50,7 @@ public class AtualizaProdutoServlet extends HttpServlet {
 				System.out.println(produto.getProduto());
 
 				produtoDao.fecharConexao();
-				response.sendRedirect("area-restrita");
+				response.sendRedirect("AreaRestrita.jsp");
 
 			} catch (Exception e) {
 				e.printStackTrace();

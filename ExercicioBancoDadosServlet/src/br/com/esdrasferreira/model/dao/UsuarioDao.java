@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.esdrasferreira.factory.jdbc.FabricaConexao;
 import br.com.esdrasferreira.model.entity.Usuario;
+import br.com.esdrasferreira.factory.jdbc.*;
 
 public class UsuarioDao {
 	
