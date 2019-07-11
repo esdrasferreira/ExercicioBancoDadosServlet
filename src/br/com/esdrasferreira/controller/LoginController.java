@@ -25,28 +25,26 @@ public class LoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession(true);
+
 		String usuario = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
 		String parametro = request.getParameter("parametro");
-		int senha2 = 0;
-		
 
-		
+		int senha2 = 0;
+
 		if (parametro.equals("login")) {
-			 senha2 = Integer.parseInt(senha);
+			senha2 = Integer.parseInt(senha);
 
 			try {
 				Usuario user = new Usuario();
 				UsuarioDao dao = new UsuarioDao();
-				
-				
+
 				user = dao.login(usuario, senha2);
-				
-				
-				request.setAttribute("usuario", user);
-				
-			
-				
+
+				sessao.setAttribute("usuario", user.getUsuario());
+				sessao.setAttribute("idUsuario", user.getId());
+
 				request.getRequestDispatcher("/produto-controller").forward(request, response);
 
 			} catch (Exception e) {
@@ -55,11 +53,8 @@ public class LoginController extends HttpServlet {
 
 			}
 		} else if (parametro.equals("logout")) {
-			HttpSession sessao = request.getSession(true);
-			
-			
+
 			sessao.setAttribute("id", null);
-			
 
 			response.sendRedirect("login.jsp");
 		}
@@ -68,7 +63,7 @@ public class LoginController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		doGet(request, response);
 	}
 

@@ -15,11 +15,7 @@
 <body>
 
 	<%
-		HttpSession sessao = request.getSession(true);
 		Usuario user = (Usuario) request.getAttribute("usuario");
-		
-
-		
 	%>
 
 
@@ -38,23 +34,23 @@
 		</div>
 
 	</div>
-	
+
 
 	<nav class="navbar navbar-light bg-light">
 		<div class="row">
 			<div class="col" style="column-width: 10cm;"></div>
 
-			<form class="form-inline" action="produto-controller?comando=salvar" method="post">
-				<input type="hidden" name="idUsuario" value="<%=user.getId()%>"> 
+			<form class="form-inline" action="produto-controller?comando=salvar"
+				method="post">
+
 				<input class="form-control mr-sm-2" type="text" name="txtRq"
-					value="" style="background-color: white;"
-					aria-label="Adicionar">
+					value="" style="background-color: white;" aria-label="Adicionar">
 				<button class="btn btn-outline-success my-2 my-sm-0"
 					style="background-color: aqua;" type="submit">Salvar</button>
 			</form>
 		</div>
 
-		
+
 	</nav>
 
 	<div class="container">
@@ -63,7 +59,8 @@
 			<br />
 		</div>
 		<div class="row" style="font-style: italic;">
-			<a class="btn btn-primary" href="login-controller?parametro=logout" role="button">Logout</a>
+			<a class="btn btn-primary" href="login-controller?parametro=logout"
+				role="button">Logout</a>
 		</div>
 	</div>
 

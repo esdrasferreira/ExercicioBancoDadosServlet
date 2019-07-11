@@ -16,7 +16,6 @@
 <body>
 
 	<%
-		HttpSession sessao = request.getSession(true);
 		Usuario user = (Usuario) request.getAttribute("usuario");
 	%>
 
@@ -48,8 +47,7 @@
 						placeholder="texto" value="">
 					<button type="submit" class="btn btn-primary mb-2">Realizar
 						Procura</button>
-					<input type="hidden" name="comando" value="procura"> <input
-						type="hidden" name="idUsuario" value="<%=user.getId()%>">
+					<input type="hidden" name="comando" value="procura">
 				</div>
 			</div>
 
@@ -79,10 +77,10 @@
 						<td><%=prod.getId()%></td>
 						<td><%=prod.getProduto()%></td>
 						<td><a
-							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Atualizar</a>
+							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
 						</td>
 						<td><a
-							href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Excluir</a>
+							href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>">Excluir</a>
 						</td>
 					</tr>
 
@@ -94,13 +92,13 @@
 
 		</div>
 	</form>
-	<form action="produto-controller?comando=add" method="post">
+	
 		<div class="container">
 
 			<div class="row" style="margin: 5 mm;">
-				<a class="btn btn-primary" href="produto-controller?comando=add&idUsuario=<%=user.getId() %>"
-					role="button">Clique aqui para adicionar um produto...</a> 
-				<input type="hidden" name="idUsuario" value="<%=user.getId()%>">
+				<a class="btn btn-primary" href="produto-controller?comando=add"
+					role="button">Clique aqui para adicionar um produto...</a>
+
 			</div>
 			<div class="row">
 				<br />
@@ -110,7 +108,7 @@
 					role="button">Logout</a>
 			</div>
 		</div>
-	</form>
+	
 
 
 

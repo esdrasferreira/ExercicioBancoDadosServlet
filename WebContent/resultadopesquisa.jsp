@@ -1,4 +1,4 @@
- 
+
 <%@page import="br.com.esdrasferreira.model.dao.ProdutoDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="utf-8" import="javax.servlet.*" import="java.sql.*"
@@ -16,9 +16,7 @@
 <body>
 
 	<%
-		HttpSession sessao = request.getSession(true);
-	    Usuario user = (Usuario) request.getAttribute("usuario");
-	    
+		Usuario user = (Usuario) request.getAttribute("usuario");
 	%>
 
 
@@ -32,7 +30,8 @@
 		<div class="row">
 			<br />
 			<h6 style="color: blue;">
-				Usuário logado:	<%=user.getUsuario()%>
+				Usuário logado:
+				<%=user.getUsuario()%>
 			</h6>
 		</div>
 
@@ -48,8 +47,8 @@
 						id="<%=user.getId()%>" placeholder="texto" value="">
 					<button type="submit" class="btn btn-primary mb-2">Realizar
 						Procura</button>
-						<input type="hidden"  name="comando"   value="procura">
-						<input type="hidden"  name="idUsuario"   value="<%=user.getId()%>">
+					<input type="hidden" name="comando" value="procura">
+
 				</div>
 			</div>
 
@@ -71,20 +70,23 @@
 			</thead>
 			<tbody>
 				<%
-				List<Produto> produtos = (List<Produto>) request.getAttribute("produtoList");
-							for(Iterator<Produto> list = produtos.iterator(); list.hasNext();){
-								
-								Produto prod = (Produto) list.next();
-				
+					List<Produto> produtos = (List<Produto>) request.getAttribute("produtoList");
+					for (Iterator<Produto> list = produtos.iterator(); list.hasNext();) {
+
+						Produto prod = (Produto) list.next();
 				%>
 
 
 				<tr>
-						<td><%=prod.getId()%></td>
-						<td><%=prod.getProduto()%></td>
-						<td><a href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Atualizar</a> </td>
-						<td><a href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Excluir</a> </td>
-					</tr>
+					<td><%=prod.getId()%></td>
+					<td><%=prod.getProduto()%></td>
+					<td><a
+						href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
+					</td>
+					<td><a
+						href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>">Excluir</a>
+					</td>
+				</tr>
 
 				<%
 					}
@@ -95,23 +97,31 @@
 			</tbody>
 		</table>
 	</div>
-	<form action="produto-controller?comando=add" method="post">
-		<div class="container">
 
-			<div class="row" style="margin: 5 mm;">
-				<a class="btn btn-primary" href="produto-controller?comando=add&idUsuario=<%=user.getId() %>"
-					role="button">Clique aqui para adicionar um produto...</a> 
-				<input type="hidden" name="idUsuario" value="<%=user.getId()%>">
-			</div>
-			<div class="row">
-				<br />
-			</div>
-			<div class="row" style="font-style: italic;">
-				<a class="btn btn-primary" href="login-controller?parametro=logout"
-					role="button">Logout</a>
-			</div>
+	<div class="container">
+
+		<div class="row" style="margin: 5 mm;">
+			<a class="btn btn-primary" href="produto-controller?comando=add"
+				role="button">Clique aqui para adicionar um produto...</a>
+
 		</div>
-	</form>
+		<div class="row">
+			<br />
+		</div>
+		<div class="row" style="margin: 5 mm;">
+			<a class="btn btn-primary" href="produto-controller?comando=produtos"
+				role="button">Visualizar todos os produtos</a>
+
+		</div>
+		<div class="row">
+			<br />
+		</div>
+		<div class="row" style="font-style: italic;">
+			<a class="btn btn-primary" href="login-controller?parametro=logout"
+				role="button">Logout</a>
+		</div>
+	</div>
+
 
 
 

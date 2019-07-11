@@ -39,7 +39,7 @@ public class ProdutoDao {
 
 		PreparedStatement ps = null;
 		Connection conexao = null;
-		
+
 		try {
 			conexao = this.conexao;
 			ps = conexao.prepareStatement("UPDATE `produtos` SET `produto` =? WHERE `produtos`.`id_produto` = ?");
@@ -186,7 +186,5 @@ public class ProdutoDao {
 		}
 
 	}
-	
-	
 
 }

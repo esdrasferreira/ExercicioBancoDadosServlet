@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import br.com.esdrasferreira.model.dao.ProdutoDao;
 import br.com.esdrasferreira.model.dao.UsuarioDao;
 import br.com.esdrasferreira.model.dao.UsuarioProdutoDao;
@@ -26,10 +28,11 @@ public class ProdutoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		HttpSession sessao = request.getSession(true);
+		HttpSession sessao = request.getSession(true);
 		RequestDispatcher requestDispatcher = null;
 
 		String comando = request.getParameter("comando");
+		System.out.println(comando);
 		ProdutoDao produtoDAO = null;
 		Usuario user = null;
 
@@ -41,117 +44,87 @@ public class ProdutoController extends HttpServlet {
 			user = new Usuario();
 
 			if (comando.equals("produtos")) {
-				 user = (Usuario) request.getAttribute("usuario");
+				UsuarioDao userDao = new UsuarioDao();
+				int userID = (Integer) sessao.getAttribute("idUsuario");
+				user = userDao.getUser(userID);
 
 				List<Produto> produtos = produtoDAO.todos(user.getId());
 				request.setAttribute("produtoList", produtos);
 				request.setAttribute("usuario", user);
 				requestDispatcher = request.getRequestDispatcher("arearestrita.jsp");
-				
-				
-			}else if (comando.equals("excluir")) { 
-				
+
+			} else if (comando.equals("excluir")) {
+
 				String idProduto = request.getParameter("idProduto");
-				String idUsuario = request.getParameter("idUsuario");
-				
 				int id = Integer.parseInt(idProduto);
-				int idUser = Integer.parseInt(idUsuario);
 
 				produtoDAO.excluir(id);
-				UsuarioDao userDao = new UsuarioDao();
-				
-				user = userDao.getUser(idUser);
-				request.setAttribute("usuario", user);
 
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
-				
-			}else if (comando.equals("update")) {
-				
+
+			} else if (comando.equals("update")) {
+
 				String idProduto = request.getParameter("idProduto");
-				String idUsuario = request.getParameter("idUsuario");
 				String novoProduto = request.getParameter("novoProduto");
 				int id = Integer.parseInt(idProduto);
-				int idUser = Integer.parseInt(idUsuario);
-				
+
 				Produto produto = new Produto();
 				produto.setProduto(novoProduto);
 				produto.setId(id);
 				produtoDAO.atualizar(produto);
-				
-				UsuarioDao userDao = new UsuarioDao();
-				user = userDao.getUser(idUser);
-				request.setAttribute("usuario", user);
-				
+
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
-				
-				
-				
-				
-			}else if (comando.equals("atualizar")) {
+
+			} else if (comando.equals("atualizar")) {
 				String idProduto = request.getParameter("idProduto");
-				String idUsuario = request.getParameter("idUsuario");
-				
+				int userID = (Integer) sessao.getAttribute("idUsuario");
+
 				int id = Integer.parseInt(idProduto);
-				int idUser = Integer.parseInt(idUsuario);
+
 				UsuarioProduto userProd = new UsuarioProduto();
-				 UsuarioProdutoDao userDao = new UsuarioProdutoDao();
-				 userProd =userDao.getDados(idUser, id);
-				 request.setAttribute("usuario", userProd);
-				 requestDispatcher = request.getRequestDispatcher("atualizalista.jsp");
-				
-			}else if (comando.equals("procura")) {
+				UsuarioProdutoDao userDao = new UsuarioProdutoDao();
+				userProd = userDao.getDados(userID, id);
+				request.setAttribute("usuario", userProd);
+				requestDispatcher = request.getRequestDispatcher("atualizalista.jsp");
+
+			} else if (comando.equals("procura")) {
 				String valorProcura = request.getParameter("produtoSearch");
-				String idUsuario = request.getParameter("idUsuario");
-				
-				
-				int idUser = Integer.parseInt(idUsuario);
-				List<Produto> produtos=produtoDAO.pesquisaPorNomeProduto(valorProcura, idUser);
-				
+				int userID = (Integer) sessao.getAttribute("idUsuario");
+
+				List<Produto> produtos = produtoDAO.pesquisaPorNomeProduto(valorProcura, userID);
+
 				UsuarioDao userDao = new UsuarioDao();
-				
-				user = userDao.getUser(idUser);
-				
+
+				user = userDao.getUser(userID);
+
 				request.setAttribute("produtoList", produtos);
 				request.setAttribute("usuario", user);
-				
+
 				requestDispatcher = request.getRequestDispatcher("resultadopesquisa.jsp");
-				
-			}else if (comando.equals("add")) {
-				
-				String idUsuario = request.getParameter("idUsuario");
-								
-				int idUser = Integer.parseInt(idUsuario);
-				
+
+			} else if (comando.equals("add")) {
+
+				int userID = (Integer) sessao.getAttribute("idUsuario");
+
 				UsuarioDao userDao = new UsuarioDao();
-				user = userDao.getUser(idUser);
-				
-				
+				user = userDao.getUser(userID);
+				System.out.println(user.getUsuario());
 				request.setAttribute("usuario", user);
-				
+
 				requestDispatcher = request.getRequestDispatcher("addproduto.jsp");
-				
-			}else if (comando.equals("salvar")) {
-				
-				String idUsuario = request.getParameter("idUsuario");
+
+			} else if (comando.equals("salvar")) {
+
+				int userID = (Integer) sessao.getAttribute("idUsuario");
 				String novoProduto = request.getParameter("txtRq");
-								
-				int idUser = Integer.parseInt(idUsuario);
-				
+
 				UsuarioDao userDao = new UsuarioDao();
-				produtoDAO.addProduto(novoProduto, idUser);
-				
-				
-				user = userDao.getUser(idUser);
-				
-				
-				request.setAttribute("usuario", user);
-				
-				
+				produtoDAO.addProduto(novoProduto, userID);
+
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
-				
+
 			}
-			
-			
+
 			requestDispatcher.forward(request, response);
 
 		} catch (Exception e) {
@@ -163,7 +136,7 @@ public class ProdutoController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 

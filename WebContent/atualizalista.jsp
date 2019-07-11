@@ -15,7 +15,6 @@
 <body>
 
 	<%
-		HttpSession sessao = request.getSession(true);
 		UsuarioProduto user = (UsuarioProduto) request.getAttribute("usuario");
 	%>
 
@@ -30,8 +29,9 @@
 		<div class="row">
 			<br />
 			<h6 style="color: blue; font-weight: bold;">
-				Current user: <%=user.getNome()%>
-				</h6>
+				Current user:
+				<%=user.getNome()%>
+			</h6>
 		</div>
 
 	</div>
@@ -42,10 +42,10 @@
 			<div class="col" style="column-width: 10cm;"></div>
 
 			<form class="form-inline" action="produto-controller" method="post">
-				<input type="hidden" name="idProduto" value="<%=user.getIdproduto()%>">
-				<input type="hidden" name="idUsuario" value="<%=user.getIdusuario()%>">
-				<input type="hidden" name="comando" value="update">
-				<input class="form-control mr-sm-2" type="text" name="novoProduto"
+				<input type="hidden" name="idProduto"
+					value="<%=user.getIdproduto()%>"> <input type="hidden"
+					name="comando" value="update"> <input
+					class="form-control mr-sm-2" type="text" name="novoProduto"
 					value="<%=user.getProduto()%>" style="background-color: white;"
 					aria-label="Salvar">
 				<button class="btn btn-outline-success my-2 my-sm-0"
@@ -64,7 +64,8 @@
 			<br />
 		</div>
 		<div class="row" style="font-style: italic;">
-			<a class="btn btn-primary" href="login-controller?parametro=logout" role="button">Logout</a>
+			<a class="btn btn-primary" href="login-controller?parametro=logout"
+				role="button">Logout</a>
 		</div>
 	</div>
 
