@@ -18,9 +18,7 @@ import br.com.esdrasferreira.model.entity.Produto;
 import br.com.esdrasferreira.model.entity.Usuario;
 import br.com.esdrasferreira.model.entity.UsuarioProduto;
 
-/**
- * Servlet implementation class ProdutoController
- */
+
 @WebServlet({ "/ProdutoController", "/produto-controller" })
 public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -118,7 +116,6 @@ public class ProdutoController extends HttpServlet {
 				int userID = (Integer) sessao.getAttribute("idUsuario");
 				String novoProduto = request.getParameter("txtRq");
 
-				UsuarioDao userDao = new UsuarioDao();
 				produtoDAO.addProduto(novoProduto, userID);
 
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
