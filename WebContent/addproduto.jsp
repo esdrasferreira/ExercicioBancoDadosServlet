@@ -1,13 +1,13 @@
 
 <%@page import="br.com.esdrasferreira.model.dao.ProdutoDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="javax.servlet.*" import="java.sql.*"
-	import="br.com.esdrasferreira.model.entity.Produto"%>
+	pageEncoding="utf-8" import="javax.servlet.*" import="java.sql.*"
+	import="br.com.esdrasferreira.model.entity.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>Adicionar Produtos</title>
@@ -16,7 +16,7 @@
 
 	<%
 		HttpSession sessao = request.getSession(true);
-		Integer id = (Integer) sessao.getAttribute("id");
+		Usuario user = (Usuario) request.getAttribute("usuario");
 		
 
 		
@@ -33,8 +33,8 @@
 		<div class="row">
 			<br />
 			<h6 style="color: blue;">
-				Usuário logado:
-				<%=sessao.getAttribute("user")%></h6>
+				UsuÃ¡rio logado:
+				<%=user.getUsuario()%></h6>
 		</div>
 
 	</div>
@@ -44,8 +44,8 @@
 		<div class="row">
 			<div class="col" style="column-width: 10cm;"></div>
 
-			<form class="form-inline" action="inserir-produto-servlet">
-				<input type="hidden" name="id" value="<%=id%>"> 
+			<form class="form-inline" action="produto-controller?comando=salvar" method="post">
+				<input type="hidden" name="idUsuario" value="<%=user.getId()%>"> 
 				<input class="form-control mr-sm-2" type="text" name="txtRq"
 					value="" style="background-color: white;"
 					aria-label="Adicionar">
@@ -63,7 +63,7 @@
 			<br />
 		</div>
 		<div class="row" style="font-style: italic;">
-			<a class="btn btn-primary" href="finaliza-sessao" role="button">Logout</a>
+			<a class="btn btn-primary" href="login-controller?parametro=logout" role="button">Logout</a>
 		</div>
 	</div>
 

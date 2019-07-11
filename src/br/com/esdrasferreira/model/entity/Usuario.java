@@ -2,7 +2,7 @@ package br.com.esdrasferreira.model.entity;
 
 public class Usuario {
 	
-	public Usuario(int id, String usuario, String senha) {
+	public Usuario(int id, String usuario, int senha) {
 		this.id = id;
 		this.usuario = usuario;
 		this.senha = senha;
@@ -11,7 +11,8 @@ public class Usuario {
 	public Usuario() {}
 	private int id;
 	private String usuario;
-	private String senha;
+	private int senha;
+	
 	
 	
 	public int getId() {
@@ -26,10 +27,10 @@ public class Usuario {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getSenha() {
+	public int getSenha() {
 		return senha;
 	}
-	public void setSenha(String senha) {
+	public void setSenha(int senha) {
 		this.senha = senha;
 	}
 	

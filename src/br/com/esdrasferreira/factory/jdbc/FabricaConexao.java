@@ -12,7 +12,7 @@ public class FabricaConexao {
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 			return DriverManager.getConnection( url , "esdras01", "j4cA0~uh!x-f");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			throw new Exception("Erro na conexão");
 		}
 	}

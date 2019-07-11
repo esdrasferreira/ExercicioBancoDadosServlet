@@ -1,14 +1,14 @@
 
 <%@page import="br.com.esdrasferreira.model.dao.ProdutoDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="javax.servlet.*" import="java.sql.*"
+	pageEncoding="utf-8" import="javax.servlet.*" import="java.sql.*"
 	import="java.util.*" import="br.com.esdrasferreira.model.entity.*"
 	import="java.util.Iterator"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>Produtos</title>
@@ -17,7 +17,7 @@
 
 	<%
 		HttpSession sessao = request.getSession(true);
-		Integer idsession = (Integer) session.getAttribute("id");
+		Usuario user = (Usuario) request.getAttribute("usuario");
 	%>
 
 
@@ -31,30 +31,32 @@
 		<div class="row">
 			<br />
 			<h6 style="color: blue;">
-				Usuário logado:
-				<%=sessao.getAttribute("user")%>
+				UsuÃ¡rio logado:
+				<%=user.getUsuario()%>
 			</h6>
 		</div>
 
 	</div>
 
-	<form action="ResultadoPesquisa.jsp" method="get">
+	<form action="produto-controller" method="get">
 		<div class="container">
 
 			<div class="form-inline">
 				<div class="row">
 					<label for="inputPassword2" class="sr-only">procurar</label> <input
 						type="text" class="form-control" name="produtoSearch"
-						id="<%=idsession%>" placeholder="texto" value="">
+						placeholder="texto" value="">
 					<button type="submit" class="btn btn-primary mb-2">Realizar
 						Procura</button>
+					<input type="hidden" name="comando" value="procura"> <input
+						type="hidden" name="idUsuario" value="<%=user.getId()%>">
 				</div>
 			</div>
 
 		</div>
 
 	</form>
-	<form action="AtualizaLista.jsp">
+	<form action="produto-controller?comando=atualizar" method="post">
 		<div class="container">
 			<table class="table table-bordered table-dark">
 				<thead class="thead-dark">
@@ -68,19 +70,20 @@
 
 				<tbody>
 					<%
-						Produto prod = new Produto();
+						List<Produto> produtos = (List<Produto>) request.getAttribute("produtoList");
+						for (Iterator<Produto> list = produtos.iterator(); list.hasNext();) {
 
-						ProdutoDao dao = new ProdutoDao();
-						List<Produto> produtos = dao.todos(idsession);
-						Iterator<Produto> iter = produtos.iterator();
-						while (iter.hasNext()) {
-							prod = iter.next();
+							Produto prod = (Produto) list.next();
 					%>
 					<tr>
 						<td><%=prod.getId()%></td>
 						<td><%=prod.getProduto()%></td>
-						<td><a href=<%="\"AtualizaLista.jsp?Id=" + prod.getId() + "\""%>>Atualizar</a></td>
-						<td><a href=<%="\"excluir-servlet?Id=" + prod.getId() + "\""%>>Excluir</a></td>
+						<td><a
+							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Atualizar</a>
+						</td>
+						<td><a
+							href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>&idUsuario=<%=user.getId()%>">Excluir</a>
+						</td>
 					</tr>
 
 					<%
@@ -91,20 +94,23 @@
 
 		</div>
 	</form>
-	<div class="container">
-	
-		<div class="row" style="margin: 5 mm;">
-			<a class="btn btn-primary" href="AddProduto.jsp" role="button">Clique
-				aqui para adicionar um produto...</a>
-		</div>
-		<div class="row">
-			<br />
-		</div>
-		<div class="row" style="font-style: italic;">
-			<a class="btn btn-primary" href="finaliza-sessao" role="button">Logout</a>
-		</div>
-	</div>
+	<form action="produto-controller?comando=add" method="post">
+		<div class="container">
 
+			<div class="row" style="margin: 5 mm;">
+				<a class="btn btn-primary" href="produto-controller?comando=add&idUsuario=<%=user.getId() %>"
+					role="button">Clique aqui para adicionar um produto...</a> 
+				<input type="hidden" name="idUsuario" value="<%=user.getId()%>">
+			</div>
+			<div class="row">
+				<br />
+			</div>
+			<div class="row" style="font-style: italic;">
+				<a class="btn btn-primary" href="login-controller?parametro=logout"
+					role="button">Logout</a>
+			</div>
+		</div>
+	</form>
 
 
 

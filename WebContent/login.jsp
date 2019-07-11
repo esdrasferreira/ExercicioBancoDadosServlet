@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>Login</title>
 </head>
 <body>
 
-<form action="login" method="post">
+<form action="login-controller" method="post">
   <div class="form-group">
     <label for="usuarioInput">Usuário</label>
     <input type="text" class="form-control" value="esdras" name="usuario" aria-describedby="emailHelp" placeholder="Usuário">
@@ -19,7 +19,7 @@
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" name="senha" value="1234" placeholder="Password">
   </div>
-  
+  <input type="hidden"  name="parametro"   value="login">
   <button type="submit"  value="Logar" class="btn btn-primary">Submit</button>
 </form>
 
