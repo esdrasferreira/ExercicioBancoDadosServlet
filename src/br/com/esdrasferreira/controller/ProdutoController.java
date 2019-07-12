@@ -18,7 +18,6 @@ import br.com.esdrasferreira.model.entity.Produto;
 import br.com.esdrasferreira.model.entity.Usuario;
 import br.com.esdrasferreira.model.entity.UsuarioProduto;
 
-
 @WebServlet({ "/ProdutoController", "/produto-controller" })
 public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,9 +29,12 @@ public class ProdutoController extends HttpServlet {
 		RequestDispatcher requestDispatcher = null;
 
 		String comando = request.getParameter("comando");
-		System.out.println(comando);
+		
 		ProdutoDao produtoDAO = null;
 		Usuario user = null;
+		UsuarioDao userDao = null;
+		String idProduto = request.getParameter("idProduto");
+		int userID = (Integer) sessao.getAttribute("idUsuario");
 
 		if (comando == null)
 			comando = "produtos";
@@ -40,10 +42,9 @@ public class ProdutoController extends HttpServlet {
 		try {
 			produtoDAO = new ProdutoDao();
 			user = new Usuario();
-
+			userDao = new UsuarioDao();
 			if (comando.equals("produtos")) {
-				UsuarioDao userDao = new UsuarioDao();
-				int userID = (Integer) sessao.getAttribute("idUsuario");
+
 				user = userDao.getUser(userID);
 
 				List<Produto> produtos = produtoDAO.todos(user.getId());
@@ -53,7 +54,6 @@ public class ProdutoController extends HttpServlet {
 
 			} else if (comando.equals("excluir")) {
 
-				String idProduto = request.getParameter("idProduto");
 				int id = Integer.parseInt(idProduto);
 
 				produtoDAO.excluir(id);
@@ -62,7 +62,6 @@ public class ProdutoController extends HttpServlet {
 
 			} else if (comando.equals("update")) {
 
-				String idProduto = request.getParameter("idProduto");
 				String novoProduto = request.getParameter("novoProduto");
 				int id = Integer.parseInt(idProduto);
 
@@ -74,24 +73,19 @@ public class ProdutoController extends HttpServlet {
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
 
 			} else if (comando.equals("atualizar")) {
-				String idProduto = request.getParameter("idProduto");
-				int userID = (Integer) sessao.getAttribute("idUsuario");
 
 				int id = Integer.parseInt(idProduto);
 
 				UsuarioProduto userProd = new UsuarioProduto();
-				UsuarioProdutoDao userDao = new UsuarioProdutoDao();
-				userProd = userDao.getDados(userID, id);
+				UsuarioProdutoDao userProdDao = new UsuarioProdutoDao();
+				userProd = userProdDao.getDados(userID, id);
 				request.setAttribute("usuario", userProd);
 				requestDispatcher = request.getRequestDispatcher("atualizalista.jsp");
 
 			} else if (comando.equals("procura")) {
 				String valorProcura = request.getParameter("produtoSearch");
-				int userID = (Integer) sessao.getAttribute("idUsuario");
 
 				List<Produto> produtos = produtoDAO.pesquisaPorNomeProduto(valorProcura, userID);
-
-				UsuarioDao userDao = new UsuarioDao();
 
 				user = userDao.getUser(userID);
 
@@ -102,18 +96,14 @@ public class ProdutoController extends HttpServlet {
 
 			} else if (comando.equals("add")) {
 
-				int userID = (Integer) sessao.getAttribute("idUsuario");
-
-				UsuarioDao userDao = new UsuarioDao();
 				user = userDao.getUser(userID);
-				System.out.println(user.getUsuario());
+
 				request.setAttribute("usuario", user);
 
 				requestDispatcher = request.getRequestDispatcher("addproduto.jsp");
 
 			} else if (comando.equals("salvar")) {
 
-				int userID = (Integer) sessao.getAttribute("idUsuario");
 				String novoProduto = request.getParameter("txtRq");
 
 				produtoDAO.addProduto(novoProduto, userID);

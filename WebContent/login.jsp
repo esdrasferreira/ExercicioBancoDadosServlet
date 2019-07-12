@@ -9,24 +9,28 @@
 <title>Login</title>
 </head>
 <body>
-
+<div class="container"> 
 	<form action="login-controller" method="post">
-		<div class="form-group">
+	
+		<div class="form-row">
+			<div class="col-2">
 			<label for="usuarioInput">Usuário</label> <input type="text"
 				class="form-control" value="esdras" name="usuario"
-				aria-describedby="emailHelp" placeholder="Usuário"> <small
-				id="emailHelp" class="form-text text-muted">We'll never
-				share your account date with anyone else. Unless master, teacher,
-				guru, Edson.</small>
-		</div>
-		<div class="form-group">
-			<label for="exampleInputPassword1">Password</label> <input
+				aria-describedby="emailHelp" placeholder="Usuário"> 
+				</div>
+				<div class="col2">
+			  <label for="exampleInputPassword1">Password</label> <input
 				type="password" class="form-control" name="senha" value="1234"
 				placeholder="Password">
+			</div>
+			
 		</div>
-		<input type="hidden" name="parametro" value="login">
-		<button type="submit" value="Logar" class="btn btn-primary">Submit</button>
+		<div class="col">
+			<input type="hidden" name="parametro" value="login" >
+			<button type="submit" value="Logar" class="btn btn-primary">Submit</button>
+			</div>
+		
 	</form>
-
+  </div>
 </body>
 </html>

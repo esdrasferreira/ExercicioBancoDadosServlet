@@ -18,7 +18,7 @@ public class ProdutoDao {
 
 		PreparedStatement ps = null;
 		Connection conexao = null;
-//UPDATE `produtos` SET `produto` = 'ps4' WHERE `produtos`.`id_produto` = 1
+
 		try {
 			conexao = this.conexao;
 			ps = conexao.prepareStatement(
@@ -172,7 +172,7 @@ public class ProdutoDao {
 
 		PreparedStatement ps = null;
 		Connection conexao = null;
-//"DELETE FROM `produtos` WHERE `produtos`.`id_produto` = 1"?
+
 		try {
 			conexao = this.conexao;
 			ps = conexao.prepareStatement("DELETE FROM `produtos` WHERE `produtos`.`id_produto` = '" + id + "'");

@@ -54,6 +54,14 @@
 	</nav>
 
 	<div class="container">
+	<div class="row">
+			<br />
+		</div>
+		<div class="row" style="margin: 5 mm;">
+			<a class="btn btn-primary" href="produto-controller?comando=produtos"
+				role="button">Visualizar todos os produtos</a>
+
+		</div>
 
 		<div class="row">
 			<br />
