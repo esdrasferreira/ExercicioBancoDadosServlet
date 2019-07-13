@@ -52,6 +52,19 @@
 
 
 	</nav>
+	<div class="container">
+	<label style="font-size: large; font-weight: bolder; color: red;">
+	<%
+			String erro = (String) request.getAttribute("erros");
+			if (erro != null) {
+				out.println(erro);
+				out.println("<br>");
+			}
+		%>
+	
+	</label>
+		
+	</div>
 
 	<div class="container">
 	<div class="row">

@@ -48,6 +48,7 @@
 					class="form-control mr-sm-2" type="text" name="novoProduto"
 					value="<%=user.getProduto()%>" style="background-color: white;"
 					aria-label="Salvar">
+
 				<button class="btn btn-outline-success my-2 my-sm-0"
 					style="background-color: aqua;" type="submit">Salvar</button>
 			</form>
@@ -55,12 +56,25 @@
 
 
 	</nav>
+	<div class="container">
+	<label style="font-size: large; font-weight: bolder; color: red;">
+	<%
+			String erro = (String) request.getAttribute("erros");
+			if (erro != null) {
+				out.println(erro);
+				out.println("<br>");
+			}
+		%>
+	
+	</label>
+		
+	</div>
 
 
 
 	<div class="container">
 
-		
+
 		<div class="row">
 			<br />
 		</div>

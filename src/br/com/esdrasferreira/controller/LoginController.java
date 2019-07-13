@@ -34,24 +34,41 @@ public class LoginController extends HttpServlet {
 		int senha2 = 0;
 
 		if (parametro.equals("login")) {
-			senha2 = Integer.parseInt(senha);
 
-			try {
-				Usuario user = new Usuario();
-				UsuarioDao dao = new UsuarioDao();
+			if (usuario != null && usuario != "" && senha != null && senha != "") {
 
-				user = dao.login(usuario, senha2);
+				senha2 = Integer.parseInt(senha);
 
-				sessao.setAttribute("usuario", user.getUsuario());
-				sessao.setAttribute("idUsuario", user.getId());
+				try {
+					Usuario user = new Usuario();
+					UsuarioDao dao = new UsuarioDao();
 
-				request.getRequestDispatcher("/produto-controller").forward(request, response);
+					user = dao.login(usuario, senha2);
+					
+					
+					if(user == null) {
+						request.setAttribute("erros", "Usuário ou senha inválidos.");
 
-			} catch (Exception e) {
+						request.getRequestDispatcher("login.jsp").forward(request, response);
+					}
 
-				e.printStackTrace();
+					sessao.setAttribute("usuario", user.getUsuario());
+					sessao.setAttribute("idUsuario", user.getId());
 
-			}
+					request.getRequestDispatcher("/produto-controller").forward(request, response);
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+			} request.setAttribute("erros", "Usuário e senha não obrigatórios!");
+
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+
+			
+
 		} else if (parametro.equals("logout")) {
 
 			sessao.setAttribute("id", null);

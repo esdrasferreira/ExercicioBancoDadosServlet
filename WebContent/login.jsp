@@ -9,28 +9,37 @@
 <title>Login</title>
 </head>
 <body>
-<div class="container"> 
-	<form action="login-controller" method="post">
-	
-		<div class="form-row">
-			<div class="col-2">
-			<label for="usuarioInput">Usuário</label> <input type="text"
-				class="form-control" value="esdras" name="usuario"
-				aria-describedby="emailHelp" placeholder="Usuário"> 
+	<div class="container">
+		<form action="login-controller" method="post">
+
+			<div class="form-row">
+				<div class="col-2">
+					<label for="usuarioInput">Usuário</label> <input type="text"
+						class="form-control" value="esdras" name="usuario"
+						aria-describedby="emailHelp" placeholder="Usuário">
 				</div>
 				<div class="col2">
-			  <label for="exampleInputPassword1">Password</label> <input
-				type="password" class="form-control" name="senha" value="1234"
-				placeholder="Password">
+					<label for="exampleInputPassword1">Password</label> <input
+						type="password" class="form-control" name="senha" value="1234"
+						placeholder="Password"> <label
+						style="font-size: large; font-weight: bolder; color: red;"> <%
+ 	String erro = (String) request.getAttribute("erros");
+ 	if (erro != null) {
+ 		out.println(erro);
+ 		out.println("<br>");
+ 	}
+ %>
+					</label>
+
+				</div>
+
 			</div>
-			
-		</div>
-		<div class="col">
-			<input type="hidden" name="parametro" value="login" >
-			<button type="submit" value="Logar" class="btn btn-primary">Submit</button>
+			<div class="col">
+				<input type="hidden" name="parametro" value="login">
+				<button type="submit" value="Logar" class="btn btn-primary">Submit</button>
 			</div>
-		
-	</form>
-  </div>
+
+		</form>
+	</div>
 </body>
 </html>

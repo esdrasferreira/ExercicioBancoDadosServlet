@@ -63,6 +63,20 @@ public class ProdutoController extends HttpServlet {
 			} else if (comando.equals("update")) {
 
 				String novoProduto = request.getParameter("novoProduto");
+				
+				if(novoProduto == "") {
+					int id = Integer.parseInt(idProduto);
+
+					UsuarioProduto userProd = new UsuarioProduto();
+					UsuarioProdutoDao userProdDao = new UsuarioProdutoDao();
+					userProd = userProdDao.getDados(userID, id);
+					request.setAttribute("usuario", userProd);
+					
+					request.setAttribute("erros", "Necessário um nome do produto para salvar.");
+					
+					request.getRequestDispatcher("atualizalista.jsp").forward(request, response);;
+				} else {
+				
 				int id = Integer.parseInt(idProduto);
 
 				Produto produto = new Produto();
@@ -71,7 +85,7 @@ public class ProdutoController extends HttpServlet {
 				produtoDAO.atualizar(produto);
 
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
-
+				}
 			} else if (comando.equals("atualizar")) {
 
 				int id = Integer.parseInt(idProduto);
@@ -103,13 +117,25 @@ public class ProdutoController extends HttpServlet {
 				requestDispatcher = request.getRequestDispatcher("addproduto.jsp");
 
 			} else if (comando.equals("salvar")) {
-
+				
+				
 				String novoProduto = request.getParameter("txtRq");
 
+				if(novoProduto == "") {
+					
+					user = userDao.getUser(userID);
+
+					request.setAttribute("usuario", user);
+					request.setAttribute("erros", "Necessário um nome do produto para salvar.");
+
+					requestDispatcher = request.getRequestDispatcher("addproduto.jsp");
+					
+				}else {
+				
 				produtoDAO.addProduto(novoProduto, userID);
 
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
-
+				}
 			}
 
 			requestDispatcher.forward(request, response);
