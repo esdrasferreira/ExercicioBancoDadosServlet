@@ -19,7 +19,7 @@ public class UsuarioDao {
 	
 	
 	
-	public Usuario login(String usuario, int senha) throws Exception {
+	public Usuario login(String usuario, String senha) throws Exception {
 		
 		PreparedStatement ps = null;
 		Connection conn = null;
@@ -31,13 +31,13 @@ public class UsuarioDao {
 			conn = this.conexao;
 			ps = conn.prepareStatement("SELECT * FROM `usuarios` WHERE nome=? AND senha =?");
 			ps.setString(1, usuario);
-			ps.setInt(2, senha);
+			ps.setString(2, senha);
 			
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
 				
-				return new Usuario(rs.getInt(1), rs.getString(2), rs.getInt(3));
+				return new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3));
 				
 			}
 			return null;
@@ -73,7 +73,7 @@ public Usuario getUser(int id) throws Exception {
 			
 			if(rs.next()) {
 				
-				return new Usuario(rs.getInt(1), rs.getString(2), rs.getInt(3));
+				return new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3));
 				
 			}
 			return null;
@@ -95,7 +95,7 @@ public Usuario getUser(int id) throws Exception {
 	}	
 	
 	
-public Usuario dados(String usuario, int senha) throws Exception {
+public Usuario dados(String usuario, String senha) throws Exception {
 		
 		PreparedStatement ps = null;
 		Connection conn = null;
@@ -107,13 +107,13 @@ public Usuario dados(String usuario, int senha) throws Exception {
 			conn = this.conexao;
 			ps = conn.prepareStatement("SELECT * FROM servlet.produtos where servlet.produtos.id_produto =?");
 			ps.setString(1, usuario);
-			ps.setInt(2, senha);
+			ps.setString(2, senha);
 			
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
 				
-				return new Usuario(rs.getInt(1), rs.getString(2), rs.getInt(3));
+				return new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3));
 				
 			}
 			return null;

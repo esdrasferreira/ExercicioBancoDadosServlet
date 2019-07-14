@@ -31,19 +31,19 @@ public class LoginController extends HttpServlet {
 		String senha = request.getParameter("senha");
 		String parametro = request.getParameter("parametro");
 
-		int senha2 = 0;
+		
 
 		if (parametro.equals("login")) {
 
 			if (usuario != null && usuario != "" && senha != null && senha != "") {
 
-				senha2 = Integer.parseInt(senha);
+				
 
 				try {
 					Usuario user = new Usuario();
 					UsuarioDao dao = new UsuarioDao();
 
-					user = dao.login(usuario, senha2);
+					user = dao.login(usuario, senha);
 					
 					
 					if(user == null) {
