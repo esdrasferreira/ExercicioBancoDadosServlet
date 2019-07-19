@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,11 @@ import br.com.esdrasferreira.model.entity.Usuario;
 import br.com.esdrasferreira.model.entity.UsuarioProduto;
 
 @WebServlet({ "/ProdutoController", "/produto-controller" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 5, // 5mb
+maxFileSize = 1024 * 1024 * 20, // 20mb
+maxRequestSize = 1024 * 1024 * 40 // 40mb
+
+)
 public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,8 +40,13 @@ public class ProdutoController extends HttpServlet {
 		Usuario user = null;
 		UsuarioDao userDao = null;
 		String idProduto = request.getParameter("idProduto");
+		
+		
 		int userID = (Integer) sessao.getAttribute("idUsuario");
-
+		
+		
+		
+		
 		if (comando == null)
 			comando = "produtos";
 
@@ -120,7 +131,8 @@ public class ProdutoController extends HttpServlet {
 				
 				
 				String novoProduto = request.getParameter("txtRq");
-
+				String nomeArquivo = request.getParameter("upload");
+				System.out.println(nomeArquivo);
 				if(novoProduto == "") {
 					
 					user = userDao.getUser(userID);
@@ -136,6 +148,21 @@ public class ProdutoController extends HttpServlet {
 
 				requestDispatcher = request.getRequestDispatcher("/produto-controller?comando=produtos");
 				}
+			}else if(comando.equals("imagem")) {
+				int id = Integer.parseInt(idProduto);
+		
+				Produto produto = new Produto();
+				produto = produtoDAO.pesquisaPorID(id);
+				
+				user = userDao.getUser(userID);
+
+				request.setAttribute("usuario", user);
+				
+				request.setAttribute("produto", produto);
+				
+				
+				requestDispatcher = request.getRequestDispatcher("/addproduto.jsp");
+				
 			}
 
 			requestDispatcher.forward(request, response);

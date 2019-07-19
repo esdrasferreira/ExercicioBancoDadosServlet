@@ -37,61 +37,35 @@
 
 	</div>
 
-	<form action="produto-controller" method="get">
-		<div class="container">
-
-			<div class="form-inline">
-				<div class="row">
-					<label for="inputPassword2" class="sr-only">procurar</label> <input
-						type="text" class="form-control" name="produtoSearch"
-						placeholder="texto" value="">
-					<button type="submit" class="btn btn-primary mb-2">Realizar
-						Procura</button>
-					<input type="hidden" name="comando" value="procura">
-				</div>
-			</div>
-
-		</div>
-
-	</form>
+	
 	<form action="produto-controller?comando=atualizar" method="post">
 		<div class="container">
 			<table class="table table-bordered table-dark">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">ID</th>
-						<th scope="col">Produto</th>
+						<th scope="col">Arquivo</th>
 						<th scope="col">Atualizar</th>
 						<th scope="col">Excluir</th>
-						<th scope="col">Imagem</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<%
-						List<Produto> produtos = (List<Produto>) request.getAttribute("produtoList");
-						for (Iterator<Produto> list = produtos.iterator(); list.hasNext();) {
-
-							Produto prod = (Produto) list.next();
+						
 					%>
 					<tr>
-						<td><%=prod.getId()%></td>
-						<td><%=prod.getProduto()%></td>
+						<td></td>
+						<td></td>
 						<td><a
-							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
+							href="produto-controller?comando=atualizar&idProduto=">Atualizar</a>
 						</td>
 						<td><a
-							href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>">Excluir</a>
-						</td>
-						<td>
-						<a
-							href="produto-controller?comando=imagem&idProduto=<%=prod.getId()%>">Add imagem</a>
+							href="produto-controller?comando=excluir&idProduto=">Excluir</a>
 						</td>
 					</tr>
 
-					<%
-						}
-					%>
+					
 				</tbody>
 			</table>
 
@@ -99,14 +73,15 @@
 	</form>
 	
 		<div class="container">
-
+			
 			<div class="row" style="margin: 5 mm;">
-				<a class="btn btn-primary" href="produto-controller?comando=add"
-					role="button" style="margin: 5mm; color: white;">Clique aqui para adicionar um produto...</a>
-				<a class="btn btn-primary" style="margin: 5mm;" href="upload-controller?comando=upload"
-					role="button" >UPLOAD DE ARQUIVOS</a>
-
+			<form action="upload" method="post" enctype="multipart/form-data">
+				<input type="file" name="upload">
+				<input type="submit" value="Enviar arquivo">
+				
+			</form>
 			</div>
+			
 			<div class="row">
 				<br />
 			</div>

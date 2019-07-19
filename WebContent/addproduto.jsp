@@ -16,6 +16,7 @@
 
 	<%
 		Usuario user = (Usuario) request.getAttribute("usuario");
+		Produto produto = (Produto) request.getAttribute("produto");
 	%>
 
 
@@ -30,7 +31,7 @@
 			<br />
 			<h6 style="color: blue;">
 				Usuário logado:
-				<%=user.getUsuario()%></h6>
+				<%=user.getUsuario()%> Id do produto: <%=produto.getId()%></h6>
 		</div>
 
 	</div>
@@ -40,13 +41,21 @@
 		<div class="row">
 			<div class="col" style="column-width: 10cm;"></div>
 
-			<form class="form-inline" action="produto-controller?comando=salvar"
-				method="post">
+			<form class="form-inline" action="upload"
+				method="post" enctype="multipart/form-data">
 
-				<input class="form-control mr-sm-2" type="text" name="txtRq"
-					value="" style="background-color: white;" aria-label="Adicionar">
-				<button class="btn btn-outline-success my-2 my-sm-0"
-					style="background-color: aqua;" type="submit">Salvar</button>
+				
+					<input type="file" name="upload">
+				   <input type="submit" value="Enviar arquivo">
+				   <input type="hidden" value="<%=produto.getId()%>" name="id">
+				   
+				   
+			</form>
+			<form class="form-inline" action="upload"
+				method="post" enctype="multipart/form-data">
+						   
+				   <input class="form-control mr-sm-2" type="text" name="txtRq" placeholder="Nome do Produto"
+					value="" style="background-color: white;">
 			</form>
 		</div>
 
@@ -60,7 +69,7 @@
 				out.println(erro);
 				out.println("<br>");
 			}
-		%>
+			%>
 	
 	</label>
 		

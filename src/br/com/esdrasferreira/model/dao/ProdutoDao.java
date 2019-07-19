@@ -34,6 +34,50 @@ public class ProdutoDao {
 		}
 
 	}
+	public void addProdutoComImagem(String produto, int id, String imagem) throws Exception {
+
+		PreparedStatement ps = null;
+		Connection conexao = null;
+
+		try {
+			conexao = this.conexao;
+			ps = conexao.prepareStatement(
+					"INSERT INTO `produtos` (`id_produto`, `produto`, `usuariofk`, `imagem`) VALUES (NULL, ?, ?,?)");
+			ps.setString(1, produto);
+			ps.setInt(2, id);
+			ps.setString(3, imagem);
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			throw new Exception();
+		} finally {
+			FabricaConexao.fecharPreparedStatement(ps);
+			fecharConexao();
+		}
+
+	}
+	
+	public void addImagemAoProduto(String imagem, int id ) throws Exception {
+
+		PreparedStatement ps = null;
+		Connection conexao = null;
+
+		try {
+			conexao = this.conexao;
+			ps = conexao.prepareStatement(
+					"UPDATE `produtos` SET `imagem` = ? WHERE `produtos`.`id_produto` = ?");
+			ps.setString(1, imagem);
+			ps.setInt(2, id);
+			
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			throw new Exception();
+		} finally {
+			FabricaConexao.fecharPreparedStatement(ps);
+			fecharConexao();
+		}
+
+	}
+
 
 	public void atualizar(Produto produto) throws Exception {
 

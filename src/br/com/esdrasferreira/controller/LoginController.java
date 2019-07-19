@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
 
 				}
 
-			} request.setAttribute("erros", "Usuário e senha não obrigatórios!");
+			} request.setAttribute("erros", "Usuário e senha são obrigatórios!");
 
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 
