@@ -22,6 +22,12 @@ public class Produto {
 		
 		
 	}
+	
+	public Produto(int id, String produto, String imagem) {
+		this.id = id;
+		this.produto = produto;
+		this.imagem = imagem;
+	}
 
 	public Produto() {
 	}

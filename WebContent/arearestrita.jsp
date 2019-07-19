@@ -61,9 +61,10 @@
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Produto</th>
-						<th scope="col">Atualizar</th>
-						<th scope="col">Excluir</th>
 						<th scope="col">Imagem</th>
+						<th scope="col">Alterar nome produto</th>
+						<th scope="col">Excluir produto</th>
+						<th scope="col">Adicionar</th>
 					</tr>
 				</thead>
 
@@ -77,6 +78,7 @@
 					<tr>
 						<td><%=prod.getId()%></td>
 						<td><%=prod.getProduto()%></td>
+						<td><%=prod.getImagem()%></td>
 						<td><a
 							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
 						</td>
@@ -103,8 +105,6 @@
 			<div class="row" style="margin: 5 mm;">
 				<a class="btn btn-primary" href="produto-controller?comando=add"
 					role="button" style="margin: 5mm; color: white;">Clique aqui para adicionar um produto...</a>
-				<a class="btn btn-primary" style="margin: 5mm;" href="upload-controller?comando=upload"
-					role="button" >UPLOAD DE ARQUIVOS</a>
 
 			</div>
 			<div class="row">

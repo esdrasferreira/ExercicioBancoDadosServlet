@@ -131,8 +131,8 @@ public class ProdutoController extends HttpServlet {
 				
 				
 				String novoProduto = request.getParameter("txtRq");
-				String nomeArquivo = request.getParameter("upload");
-				System.out.println(nomeArquivo);
+				
+				
 				if(novoProduto == "") {
 					
 					user = userDao.getUser(userID);
@@ -161,7 +161,7 @@ public class ProdutoController extends HttpServlet {
 				request.setAttribute("produto", produto);
 				
 				
-				requestDispatcher = request.getRequestDispatcher("/addproduto.jsp");
+				requestDispatcher = request.getRequestDispatcher("/addimagem.jsp");
 				
 			}
 

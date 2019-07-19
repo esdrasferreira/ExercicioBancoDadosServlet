@@ -181,14 +181,14 @@ public class ProdutoDao {
 
 			conexao = this.conexao;
 			st = conexao.prepareStatement(
-					"SELECT produtos.id_produto, produto FROM `produtos` WHERE `usuariofk` = '" + id + "' ");
+					"SELECT produtos.id_produto, produto, imagem FROM `produtos` WHERE `usuariofk` = '" + id + "' ");
 			rs = st.executeQuery();
 
 			List<Produto> produtos = new ArrayList<Produto>();
 
 			while (rs.next()) {
 
-				produto = new Produto(rs.getInt(1), rs.getString(2));
+				produto = new Produto(rs.getInt(1), rs.getString(2), rs.getString(3));
 
 				produtos.add(produto);
 

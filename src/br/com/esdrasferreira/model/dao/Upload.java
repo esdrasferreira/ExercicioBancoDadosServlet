@@ -38,6 +38,10 @@ public class Upload extends HttpServlet {
 
 		String caminhoDoMeuAplicativo = request.getServletContext().getRealPath("");
 
+		String caminhoDoUsuario = System.getProperty("user.home");
+//		String caminhoDaClasse = System.getProperty("user.dir");
+//		String nomeDoArquivo = request.getPart("upload").getName();
+//		long tamanhoDoArquivo = request.getPart("upload").getSize();
 		String tipoDoArquivo = request.getPart("upload").getContentType();
 
 		if (request.getContentType().indexOf("multipart/form-data") >= 0) {
@@ -50,11 +54,11 @@ public class Upload extends HttpServlet {
 
 				String diretorioParaUploadDeImagens = caminhoDoMeuAplicativo + "arquivos" + File.separator + "imagens";
 
-				// diretorioParaUploadDeImagens = caminhoDoUsuario + File.separator +
-				// "appservers" + File.separator
-				// + "arquivos" + File.separator + "imagens";
+				 diretorioParaUploadDeImagens = caminhoDoUsuario + File.separator +
+				 "appservers" + File.separator
+				 + "arquivos" + File.separator + "imagens";
 
-				
+				System.out.println(diretorioParaUploadDeImagens);
 				String nomeOriginalDoArquivo = null;
 
 				for (Part part : request.getParts()) {

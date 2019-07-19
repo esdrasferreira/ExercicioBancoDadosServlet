@@ -62,10 +62,12 @@
 		<table class="table table-bordered table-dark">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Produto</th>
-					<th scope="col">Atualizar</th>
-					<th scope="col">Excluir</th>
+						<th scope="col">ID</th>
+						<th scope="col">Produto</th>
+						<th scope="col">Imagem</th>
+						<th scope="col">Alterar nome produto</th>
+						<th scope="col">Excluir produto</th>
+						<th scope="col">Adicionar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,15 +80,20 @@
 
 
 				<tr>
-					<td><%=prod.getId()%></td>
-					<td><%=prod.getProduto()%></td>
-					<td><a
-						href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
-					</td>
-					<td><a
-						href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>">Excluir</a>
-					</td>
-				</tr>
+						<td><%=prod.getId()%></td>
+						<td><%=prod.getProduto()%></td>
+						<td><%=prod.getImagem()%></td>
+						<td><a
+							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
+						</td>
+						<td><a
+							href="produto-controller?comando=excluir&idProduto=<%=prod.getId()%>">Excluir</a>
+						</td>
+						<td>
+						<a
+							href="produto-controller?comando=imagem&idProduto=<%=prod.getId()%>">Add imagem</a>
+						</td>
+					</tr>
 
 				<%
 					}

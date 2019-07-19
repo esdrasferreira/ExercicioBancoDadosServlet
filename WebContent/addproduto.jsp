@@ -16,7 +16,7 @@
 
 	<%
 		Usuario user = (Usuario) request.getAttribute("usuario");
-		Produto produto = (Produto) request.getAttribute("produto");
+		
 	%>
 
 
@@ -31,52 +31,46 @@
 			<br />
 			<h6 style="color: blue;">
 				Usuário logado:
-				<%=user.getUsuario()%> Id do produto: <%=produto.getId()%></h6>
+				<%=user.getUsuario()%>
+				</h6>
 		</div>
 
 	</div>
 
-
-	<nav class="navbar navbar-light bg-light">
-		<div class="row">
-			<div class="col" style="column-width: 10cm;"></div>
-
-			<form class="form-inline" action="upload"
-				method="post" enctype="multipart/form-data">
-
-				
-					<input type="file" name="upload">
-				   <input type="submit" value="Enviar arquivo">
-				   <input type="hidden" value="<%=produto.getId()%>" name="id">
-				   
-				   
-			</form>
-			<form class="form-inline" action="upload"
-				method="post" enctype="multipart/form-data">
-						   
-				   <input class="form-control mr-sm-2" type="text" name="txtRq" placeholder="Nome do Produto"
-					value="" style="background-color: white;">
-			</form>
-		</div>
-
-
-	</nav>
 	<div class="container">
-	<label style="font-size: large; font-weight: bolder; color: red;">
-	<%
-			String erro = (String) request.getAttribute("erros");
-			if (erro != null) {
-				out.println(erro);
-				out.println("<br>");
-			}
+		<nav class="navbar navbar-light bg-light">
+			<div class="row">
+				<div class="col" style="column-width: 10cm;">
+					<form class="form-inline" action="produto-controller?comando=salvar" method="post">
+
+						<input class="form-control mr-sm-2" type="text" name="txtRq"
+							placeholder="Nome do Produto" value=""
+							style="background-color: white;">
+						<button class="btn btn-outline-secondary" type="submit">Adicionar produto</button>
+					</form>
+				</div>
+
+			</div>
+
+
+		</nav>
+	</div>
+	<div class="container">
+		<label style="font-size: large; font-weight: bolder; color: red;">
+			<%
+				String erro = (String) request.getAttribute("erros");
+				if (erro != null) {
+					out.println(erro);
+					out.println("<br>");
+				}
 			%>
-	
-	</label>
-		
+
+		</label>
+
 	</div>
 
 	<div class="container">
-	<div class="row">
+		<div class="row">
 			<br />
 		</div>
 		<div class="row" style="margin: 5 mm;">
