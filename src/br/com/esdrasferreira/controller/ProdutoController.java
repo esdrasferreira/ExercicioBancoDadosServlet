@@ -163,6 +163,21 @@ public class ProdutoController extends HttpServlet {
 				
 				requestDispatcher = request.getRequestDispatcher("/addimagem.jsp");
 				
+			}else if(comando.equals("galeria")){
+				int id = Integer.parseInt(idProduto);
+				
+				Produto produto = new Produto();
+				produto = produtoDAO.pesquisaPorID(id);
+				
+				
+
+				
+				
+				request.setAttribute("produto", produto);
+				
+				
+				requestDispatcher = request.getRequestDispatcher("nome-imagem");
+				
 			}
 
 			requestDispatcher.forward(request, response);

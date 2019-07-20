@@ -71,6 +71,7 @@ public class Upload extends HttpServlet {
 
 							ProdutoDao produtoDao = new ProdutoDao();
 							produtoDao.addImagemAoProduto(nomeOriginalDoArquivo, Id);
+							
 							request.getRequestDispatcher("produto-controller?comando=produtos").forward(request,
 									response);
 

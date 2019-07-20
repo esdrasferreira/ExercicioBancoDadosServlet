@@ -73,7 +73,7 @@ public class LoginController extends HttpServlet {
 
 			sessao.setAttribute("id", null);
 
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("index.html");
 		}
 
 	}

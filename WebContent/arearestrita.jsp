@@ -1,5 +1,5 @@
 
-<%@page import="br.com.esdrasferreira.model.dao.ProdutoDao"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="utf-8" import="javax.servlet.*" import="java.sql.*"
 	import="java.util.*" import="br.com.esdrasferreira.model.entity.*"
@@ -62,6 +62,7 @@
 						<th scope="col">ID</th>
 						<th scope="col">Produto</th>
 						<th scope="col">Imagem</th>
+						<th scope="col">link</th>
 						<th scope="col">Alterar nome produto</th>
 						<th scope="col">Excluir produto</th>
 						<th scope="col">Adicionar</th>
@@ -79,6 +80,8 @@
 						<td><%=prod.getId()%></td>
 						<td><%=prod.getProduto()%></td>
 						<td><%=prod.getImagem()%></td>
+						<td><a
+							href="produto-controller?comando=galeria&idProduto=<%=prod.getId()%>">link</a></td>
 						<td><a
 							href="produto-controller?comando=atualizar&idProduto=<%=prod.getId()%>">Atualizar</a>
 						</td>

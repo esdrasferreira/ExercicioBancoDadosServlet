@@ -110,12 +110,12 @@ public class ProdutoDao {
 		try {
 
 			conexao = this.conexao;
-			ps = conexao.prepareStatement("SELECT * FROM `produtos` WHERE id_produto = '" + id + "' ");
+			ps = conexao.prepareStatement("SELECT produtos.id_produto, produto, imagem FROM `produtos` WHERE `id_produto` = '" + id +"' ");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
-				produto = new Produto(rs.getInt(1), rs.getString(2));
+				produto = new Produto(rs.getInt(1), rs.getString(2), rs.getString(3));
 
 			}
 
