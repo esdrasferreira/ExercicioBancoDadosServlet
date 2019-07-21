@@ -46,11 +46,11 @@ public class nome extends HttpServlet {
 
 		
 
-				String caminhoDaImagem = "arquivos" + File.separator + "imagens"+File.separator + nomeProduto;
+				String caminhoDaImagem = "imagens"+File.separator + nomeProduto;
 
-				caminhoDaImagem = caminhoDoUsuario + File.separator +
-				 "appservers" + File.separator
-				 + "arquivos" + File.separator + "imagens"+File.separator + nomeProduto;
+//				caminhoDaImagem = caminhoDoUsuario + File.separator +
+//				 "appservers" + File.separator
+//				 + "arquivos" + File.separator + "imagens"+File.separator + nomeProduto;
 
 				System.out.println(caminhoDaImagem);
 				produto.setImagem(caminhoDaImagem);
